@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Introduction à l'Algorithmique | BIFRED</title>
+
+    <link rel="stylesheet" href=".css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap"
+        rel="stylesheet">
+        
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <div class="logo">
+
+        <h1>BIFRED</h1>
+
+    </div>
+
+    <ul>
+
+        <li><a href="index.html">Accueil</a></li>
+
+        <li><a href="bibliotheque.html">Bibliothèque</a></li>
+
+        <li><a href="Upload.html">Upload</a></li>
+
+        <li><a href="#">Exercices</a></li>
+
+    </ul>
+
+    <div class="icons">
+
+        <i class="fa-regular fa-bell"></i>
+
+        <i class="fa-regular fa-circle-user"></i>
+
+    </div>
+
+</nav>
+
+<!-- ================= CONTENU ================= -->
+
+<div class="layout">
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <h2>Navigation</h2>
+
+    <a href="#intro">
+        <i class="fa-solid fa-book"></i>
+        Cours
+    </a>
+
+    <a href="#td">
+        <i class="fa-solid fa-pencil"></i>
+        TD & Exercices
+    </a>
+
+    <a href="#">
+        <i class="fa-solid fa-upload"></i>
+        Upload
+    </a>
+
+    <a href="#">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Recherche
+    </a>
+
+    <button class="new-doc">
+
+        <i class="fa-solid fa-plus"></i>
+
+        Nouveau document
+
+    </button>
+
+</aside>
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+<!-- ================= FIL D'ARIANE ================= -->
+
+<section class="breadcrumb">
+
+    <a href="#"><strong>Bibliothèque</strong></a>
+
+    <span><strong>›</strong></span>
+
+    <a href="#"><strong>Informatique</strong></a>
+
+    <span><strong>›</strong></span>
+
+    <strong>Algorithmique</strong>
+
+</section>
+
+<!-- ================= TITRE ================= -->
+
+<header class="course-header">
+
+<h1>
+
+Introduction à l'Algorithmique
+
+</h1>
+
+<div class="course-meta">
+
+<span>
+
+<i class="fa-solid fa-user"> </i>
+
+<p>Prof. Julien Dupont</p>
+
+</span>
+
+<span>
+
+<i class="fa-regular fa-calendar"></i>
+
+<p>Mis à jour le 12 Octobre 2024</p>
+
+</span>
+
+<span>
+
+<i class="fa-solid fa-graduation-cap"></i>
+
+  <p>Licence 1 - Semestre 1</p>
+
+</span>
+
+<span class="level">
+
+Débutant
+
+</span>
+
+</div>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero-course">
+
+<p>
+
+"Un algorithme n'est rien d'autre qu'une suite d'instructions précises."
+
+</p>
+
+</section>
+
+<!-- ================= INTRO ================= -->
+
+<section id="intro">
+
+<h2>Introduction</h2>
+
+<p>
+
+L'algorithmique est le cœur battant de l'informatique. Avant même de parler de langages de programmation comme Python ou C++, il est crucial de comprendre comment structurer une pensée logique pour résoudre un problème donné.
+
+</p>
+
+<p>
+
+Ce cours pose les bases fondamentales : qu'est-ce qu'une variable, une boucle, une condition ? Nous apprendrons à décomposer des tâches complexes en étapes simples et reproductibles par une machine.
+
+</p>
+
+</section>
+
+<!-- ================= PILIERS ================= -->
+
+<section>
+
+<h2>Les piliers de l'algorithme</h2>
+
+<div class="cards">
+
+<article class="card">
+
+<i class="fa-solid fa-database"></i>
+
+<h3>Les Variables</h3>
+
+<p>
+
+Des espaces mémoire nommés pour stocker et manipuler des données temporaires.
+
+</p>
+
+</article>
+
+<article class="card">
+
+<i class="fa-solid fa-code-branch"></i>
+
+<h3>Les Structures</h3>
+
+<p>
+
+Le flux d'exécution : SI (conditions) et TANT QUE (boucles répétitives).
+
+</p>
+
+</article>
+
+</div>
+
+</section>
+
+<!-- ================= CODE ================= -->
+
+<section>
+
+<div class="section-title">
+
+<h2>Exemple de Pseudo-code</h2>
+
+<span>ALGO_SUM.txt</span>
+
+</div>
+
+<pre><code>
+ALGORITHME SommeDeuxNombres
+VARIABLES
+    a, b, resultat : ENTIER
+
+DEBUT
+
+    ECRIRE("Entrez le premier nombre : ")
+    LIRE(a)
+
+    ECRIRE("Entrez le second nombre : ")
+    LIRE(b)
+
+    resultat <- a + b
+
+    ECRIRE("Le résultat est : ", resultat)
+
+FIN
+</code></pre>
+
+</section>
+
+<!-- ================= TD ================= -->
+
+<section id="td">
+
+<h2>Travaux Dirigés (TD)</h2>
+
+<div class="td-list">
+
+<article class="td-card">
+
+<div>
+
+<h3>Fiche TD n°1 : Séquentialité</h3>
+
+<p>PDF • 1.2 MB</p>
+
+</div>
+
+<a href="#">
+
+Télécharger
+
+</a>
+
+</article>
+
+<article class="td-card">
+
+<div>
+
+<h3>Fiche TD n°2 : Structures de choix</h3>
+
+<p>PDF • 850 KB</p>
+
+</div>
+
+<a href="#">
+
+Télécharger
+
+</a>
+
+</article>
+
+</div>
+
+</section>
+
+<!-- ================= EXERCICE ================= -->
+
+<section>
+
+<h2>Testez vos connaissances</h2>
+
+<div class="exercise">
+
+<p>
+
+Exercice rapide :
+
+</p>
+
+<p>
+
+Écrivez un algorithme qui demande l'âge d'un utilisateur et affiche s'il est majeur ou mineur.
+
+</p>
+
+<div class="exercise-buttons">
+
+<button class="btn-primary">
+
+Voir la solution
+
+</button>
+
+<button class="btn-secondary">
+
+Partager ma réponse
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- ================= PDF ================= -->
+
+<button class="download-pdf">
+
+<i class="fa-solid fa-download"></i>
+
+Télécharger en PDF
+
+</button>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-top">
+
+<h2>BIFRED</h2>
+
+<p>
+
+Bibliothèque Informatique
+
+</p>
+
+</div>
+
+<div class="footer-links">
+
+<a href="#">Mentions Légales</a>
+
+<a href="#">Contact</a>
+
+<a href="#">Ressources L1</a>
+
+<a href="#">Guide d'utilisation</a>
+
+</div>
+
+<p class="copyright">
+
+© 2026 BIFRED — Bibliothèque Informatique.
+
+Apprendre • Comprendre • Réussir.
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
