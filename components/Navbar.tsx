@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { signOut } from "@/app/actions/auth";
 
 type NavbarProps = {
   variant?: "simple" | "full";
@@ -19,15 +18,9 @@ export default async function Navbar({
   } = await supabase.auth.getUser();
 
   const accountButton = (
-    <form action={signOut}>
-      <button
-        className="icon-btn"
-        type="submit"
-        title={user ? `Se déconnecter (${user.email})` : "Se déconnecter"}
-      >
-        <i className="fa-regular fa-circle-user"></i>
-      </button>
-    </form>
+    <Link href="/compte" className="icon-btn" title={user ? user.email : "Mon compte"}>
+      <i className="fa-regular fa-circle-user"></i>
+    </Link>
   );
 
   return (
