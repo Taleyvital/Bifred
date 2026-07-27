@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { signOut } from "@/app/actions/auth";
 
 type NavbarProps = {
   variant?: "simple" | "full";
@@ -6,11 +8,28 @@ type NavbarProps = {
   showSearchIcon?: boolean;
 };
 
-export default function Navbar({
+export default async function Navbar({
   variant = "simple",
   extraLinks = false,
   showSearchIcon = true,
 }: NavbarProps) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const accountButton = (
+    <form action={signOut}>
+      <button
+        className="icon-btn"
+        type="submit"
+        title={user ? `Se déconnecter (${user.email})` : "Se déconnecter"}
+      >
+        <i className="fa-regular fa-circle-user"></i>
+      </button>
+    </form>
+  );
+
   return (
     <nav>
       <div className="logo">
@@ -65,16 +84,14 @@ export default function Navbar({
             <button className="icon-btn" type="button">
               <i className="fa-regular fa-bell"></i>
             </button>
-            <button className="icon-btn" type="button">
-              <i className="fa-regular fa-circle-user"></i>
-            </button>
+            {accountButton}
           </div>
         </>
       ) : (
         <div className="icons">
           {showSearchIcon && <i className="fa-solid fa-magnifying-glass"></i>}
           <i className="fa-regular fa-bell"></i>
-          <i className="fa-regular fa-circle-user"></i>
+          {accountButton}
         </div>
       )}
     </nav>

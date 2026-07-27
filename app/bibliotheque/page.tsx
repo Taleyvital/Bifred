@@ -1,12 +1,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Bibliothèques Informatique • BIFRED",
 };
 
-export default function BibliothequePage() {
+function badgeClass(type: string) {
+  if (type === "TD & Exercices") return "td";
+  if (type === "Correction") return "medium";
+  return "hard";
+}
+
+export default async function BibliothequePage() {
+  const supabase = await createClient();
+  const { data: documents } = await supabase
+    .from("documents")
+    .select("id, title, type, subject, description, file_path")
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  const resources = await Promise.all(
+    (documents ?? []).map(async (doc) => {
+      const { data: signed } = await supabase.storage
+        .from("documents")
+        .createSignedUrl(doc.file_path, 3600);
+      return { ...doc, downloadUrl: signed?.signedUrl ?? null };
+    })
+  );
+
   return (
     <>
       <Navbar variant="full" />
@@ -108,80 +131,34 @@ export default function BibliothequePage() {
               <span>L1 Informatique</span>
             </div>
 
-            {/* RESSOURCE 1 */}
-            <article className="resource-card">
-              <div className="resource-category">
-                <i className="fa-regular fa-file-lines"></i>
-                Structures de Données Complexes
-              </div>
+            {resources.length === 0 ? (
+              <p>Aucun document n&apos;a encore été déposé. Soyez le premier à en partager un !</p>
+            ) : (
+              resources.map((doc) => (
+                <article className="resource-card" key={doc.id}>
+                  <div className="resource-category">
+                    <i className="fa-regular fa-file-lines"></i>
+                    {doc.subject}
+                  </div>
 
-              <h3>
-                Étude approfondie des arbres binaires de recherche, des tas (Heaps) et de
-                leur complexité temporelle.
-              </h3>
+                  <h3>{doc.title}</h3>
 
-              <div className="resource-footer">
-                <span className="difficulty hard">Difficile</span>
-                <span>
-                  <i className="fa-solid fa-graduation-cap"></i>
-                  L1 • Semestre 2
-                </span>
-              </div>
+                  {doc.description && <p>{doc.description}</p>}
 
-              <Link href="/cours" className="resource-btn">
-                Voir le cours
-              </Link>
-            </article>
+                  <div className="resource-footer">
+                    <span className={`difficulty ${badgeClass(doc.type)}`}>{doc.type}</span>
+                  </div>
 
-            {/* RESSOURCE 2 */}
-            <article className="resource-card">
-              <div className="resource-category">
-                <i className="fa-solid fa-network-wired"></i>
-                Modèle OSI &amp; Protocoles IP
-              </div>
-
-              <h3>
-                Comprendre les sept couches du modèle OSI, IPv4, IPv6 et les protocoles
-                réseau.
-              </h3>
-
-              <div className="resource-footer">
-                <span className="difficulty medium">Moyen</span>
-                <span>
-                  <i className="fa-solid fa-graduation-cap"></i>
-                  L2 • Semestre 1
-                </span>
-              </div>
-
-              <Link href="/cours" className="resource-btn">
-                Voir le cours
-              </Link>
-            </article>
-
-            {/* RESSOURCE 3 */}
-            <article className="resource-card">
-              <div className="resource-category">
-                <i className="fa-solid fa-code"></i>
-                TD : Programmation C
-              </div>
-
-              <h3>
-                Série complète d&apos;exercices sur les pointeurs, les structures et la
-                gestion dynamique de la mémoire.
-              </h3>
-
-              <div className="resource-footer">
-                <span className="difficulty td">TD &amp; Exercices</span>
-                <span>
-                  <i className="fa-regular fa-file"></i>
-                  12 fichiers • PDF
-                </span>
-              </div>
-
-              <Link href="/cours" className="resource-btn">
-                Voir le cours
-              </Link>
-            </article>
+                  {doc.downloadUrl ? (
+                    <a href={doc.downloadUrl} className="resource-btn">
+                      Télécharger
+                    </a>
+                  ) : (
+                    <span className="resource-btn">Indisponible</span>
+                  )}
+                </article>
+              ))
+            )}
 
             {/* CONTRIBUTION */}
             <section className="contribute">

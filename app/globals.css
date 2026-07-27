@@ -4636,3 +4636,70 @@ gap:15px;
 
 }
 
+
+/*======================================
+        AUTH PAGES
+======================================*/
+
+.auth-wrapper{
+    min-height:calc(100vh - 80px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+}
+
+.auth-card{
+    width:100%;
+    max-width:440px;
+}
+
+.auth-card h1{
+    font-size:32px;
+    margin-bottom:8px;
+    color:var(--primary);
+}
+
+.auth-card > p{
+    color:var(--text-muted);
+    margin-bottom:32px;
+}
+
+.auth-error{
+    background:#FFDAD6;
+    color:#93000A;
+    border-radius:10px;
+    padding:14px 18px;
+    margin-bottom:24px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.auth-message{
+    background:#DDF4E5;
+    color:#1E6B3C;
+    border-radius:10px;
+    padding:14px 18px;
+    margin-bottom:24px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.auth-card .btn-submit{
+    width:100%;
+    padding:16px;
+    font-size:16px;
+    margin-top:8px;
+}
+
+.auth-switch{
+    margin-top:24px;
+    text-align:center;
+    color:var(--text-muted);
+    font-size:15px;
+}
+
+.auth-switch a{
+    color:var(--primary);
+    font-weight:700;
+}

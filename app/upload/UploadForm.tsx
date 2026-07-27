@@ -1,10 +1,39 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import { uploadDocument } from "@/app/actions/documents";
 
-export default function UploadForm() {
+export type RecentDocument = {
+  id: string;
+  title: string;
+  type: string;
+  file_size: number;
+  created_at: string;
+};
+
+type UploadFormProps = {
+  navbar: ReactNode;
+  error?: string;
+  success?: string;
+  recentDocuments: RecentDocument[];
+};
+
+function formatSize(bytes: number) {
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("fr-FR", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+function badgeClass(type: string) {
+  if (type === "Cours") return "cours";
+  if (type === "TD & Exercices") return "td";
+  return "cours";
+}
+
+export default function UploadForm({ navbar, error, success, recentDocuments }: UploadFormProps) {
   const [fileName, setFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -18,13 +47,9 @@ export default function UploadForm() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-  }
-
   return (
     <>
-      <Navbar variant="full" />
+      {navbar}
 
       <div className="dashboard">
         {/* ================= SIDEBAR ================= */}
@@ -79,7 +104,10 @@ export default function UploadForm() {
           </section>
 
           <section className="upload-card">
-            <form id="uploadForm" onSubmit={handleSubmit}>
+            {error && <div className="auth-error">{error}</div>}
+            {success && <div className="auth-message">{success}</div>}
+
+            <form id="uploadForm" action={uploadDocument}>
               <div className="form-grid">
                 <div className="left-column">
                   <h2>
@@ -101,7 +129,7 @@ export default function UploadForm() {
                   <div className="double-input">
                     <div className="form-group">
                       <label htmlFor="docType">Type du document</label>
-                      <select id="docType" required defaultValue="">
+                      <select id="docType" name="docType" required defaultValue="">
                         <option value="">Choisir un type</option>
                         <option>Cours</option>
                         <option>TD &amp; Exercices</option>
@@ -112,7 +140,7 @@ export default function UploadForm() {
 
                     <div className="form-group">
                       <label htmlFor="docSubject">Matière</label>
-                      <select id="docSubject" required defaultValue="">
+                      <select id="docSubject" name="docSubject" required defaultValue="">
                         <option value="">Choisir une matière</option>
                         <option>Algorithmique</option>
                         <option>Base de données</option>
@@ -128,6 +156,7 @@ export default function UploadForm() {
                     <label htmlFor="description">Description</label>
                     <textarea
                       id="description"
+                      name="description"
                       rows={6}
                       placeholder="Décrivez brièvement le contenu du document..."
                     ></textarea>
@@ -146,8 +175,10 @@ export default function UploadForm() {
                       ref={fileInputRef}
                       type="file"
                       id="fileInput"
+                      name="file"
                       accept=".pdf,.doc,.docx"
                       hidden
+                      required
                       onChange={handleFileChange}
                     />
 
@@ -253,51 +284,36 @@ export default function UploadForm() {
                 </thead>
 
                 <tbody>
-                  <tr>
-                    <td>
-                      <div className="document-info">
-                        <div className="document-icon">
-                          <i className="fa-solid fa-file-pdf"></i>
-                        </div>
-                        <div>
-                          <h4>Base de données NoSQL</h4>
-                          <p>PDF • 4.2 MB</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className="badge cours">Cours</span>
-                    </td>
-                    <td>12 Oct. 2024</td>
-                    <td>
-                      <button className="action-btn">
-                        <i className="fa-solid fa-ellipsis"></i>
-                      </button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <div className="document-info">
-                        <div className="document-icon">
-                          <i className="fa-solid fa-file-lines"></i>
-                        </div>
-                        <div>
-                          <h4>TD - Arbres Binaires</h4>
-                          <p>PDF • 1.8 MB</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span className="badge td">TD &amp; Exercices</span>
-                    </td>
-                    <td>08 Oct. 2024</td>
-                    <td>
-                      <button className="action-btn">
-                        <i className="fa-solid fa-ellipsis"></i>
-                      </button>
-                    </td>
-                  </tr>
+                  {recentDocuments.length === 0 ? (
+                    <tr>
+                      <td colSpan={4}>Aucune publication pour le moment.</td>
+                    </tr>
+                  ) : (
+                    recentDocuments.map((doc) => (
+                      <tr key={doc.id}>
+                        <td>
+                          <div className="document-info">
+                            <div className="document-icon">
+                              <i className="fa-solid fa-file-pdf"></i>
+                            </div>
+                            <div>
+                              <h4>{doc.title}</h4>
+                              <p>{formatSize(doc.file_size)}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className={`badge ${badgeClass(doc.type)}`}>{doc.type}</span>
+                        </td>
+                        <td>{formatDate(doc.created_at)}</td>
+                        <td>
+                          <button className="action-btn">
+                            <i className="fa-solid fa-ellipsis"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
