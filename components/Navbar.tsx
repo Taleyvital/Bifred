@@ -24,47 +24,52 @@ export default async function Navbar({
   );
 
   return (
-    <nav>
+    <nav className={variant === "full" ? "nav-full" : "nav-simple"}>
       <div className="logo">
         <h1>BIFRED</h1>
       </div>
 
-      {variant === "full" ? (
-        <ul className="nav-links">
-          <li>
-            <Link href="/">Accueil</Link>
-          </li>
-          <li>
-            <Link href="/bibliotheque">Bibliothèque</Link>
-          </li>
-          <li>
-            <Link href="/cours">Cours</Link>
-          </li>
-          <li>
-            <Link href="/about">À propos</Link>
-          </li>
-        </ul>
-      ) : (
-        <ul>
-          <li>
-            <Link href="/">Accueil</Link>
-          </li>
-          <li>
-            <Link href="/bibliotheque">Bibliothèque</Link>
-          </li>
-          <li>
-            <Link href="/upload">Upload</Link>
-          </li>
-          {extraLinks && (
-            <li>
-              <Link href="/cours">Exercices</Link>
-            </li>
-          )}
-        </ul>
-      )}
+      <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+      <label htmlFor="nav-toggle" className="nav-toggle-btn" aria-label="Ouvrir le menu">
+        <i className="fa-solid fa-bars"></i>
+      </label>
 
-      {variant === "full" ? (
-        <>
+      <div className="nav-collapse">
+        {variant === "full" ? (
+          <ul className="nav-links">
+            <li>
+              <Link href="/">Accueil</Link>
+            </li>
+            <li>
+              <Link href="/bibliotheque">Bibliothèque</Link>
+            </li>
+            <li>
+              <Link href="/cours">Cours</Link>
+            </li>
+            <li>
+              <Link href="/about">À propos</Link>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              <Link href="/">Accueil</Link>
+            </li>
+            <li>
+              <Link href="/bibliotheque">Bibliothèque</Link>
+            </li>
+            <li>
+              <Link href="/upload">Upload</Link>
+            </li>
+            {extraLinks && (
+              <li>
+                <Link href="/cours">Exercices</Link>
+              </li>
+            )}
+          </ul>
+        )}
+
+        {variant === "full" && (
           <div className="nav-search">
             <label htmlFor="search" className="sr-only">
               Rechercher
@@ -72,14 +77,16 @@ export default async function Navbar({
             <i className="fa-solid fa-magnifying-glass"></i>
             <input id="search" type="text" placeholder="Rechercher un cours..." />
           </div>
+        )}
+      </div>
 
-          <div className="icons">
-            <button className="icon-btn" type="button">
-              <i className="fa-regular fa-bell"></i>
-            </button>
-            {accountButton}
-          </div>
-        </>
+      {variant === "full" ? (
+        <div className="icons">
+          <button className="icon-btn" type="button">
+            <i className="fa-regular fa-bell"></i>
+          </button>
+          {accountButton}
+        </div>
       ) : (
         <div className="icons">
           {showSearchIcon && <i className="fa-solid fa-magnifying-glass"></i>}

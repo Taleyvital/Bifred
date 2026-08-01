@@ -44,6 +44,7 @@ export default async function ComptePage() {
     <>
       <Navbar variant="full" />
 
+      <div className="page-dashboard">
       <div className="dashboard">
         {/* ================= SIDEBAR ================= */}
         <aside className="sidebar">
@@ -170,6 +171,7 @@ export default async function ComptePage() {
           © 2026 BIFRED — Bibliothèque Informatique de Référence. Tous droits réservés.
         </div>
       </footer>
+      </div>
     </>
   );
 }

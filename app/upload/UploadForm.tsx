@@ -51,6 +51,7 @@ export default function UploadForm({ navbar, error, success, recentDocuments }: 
     <>
       {navbar}
 
+      <div className="page-dashboard">
       <div className="dashboard">
         {/* ================= SIDEBAR ================= */}
         <aside className="sidebar">
@@ -364,6 +365,7 @@ export default function UploadForm({ navbar, error, success, recentDocuments }: 
           © 2026 BIFRED — Bibliothèque Informatique de Référence. Tous droits réservés.
         </div>
       </footer>
+      </div>
     </>
   );
 }

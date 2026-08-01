@@ -34,6 +34,7 @@ export default async function BibliothequePage() {
     <>
       <Navbar variant="full" />
 
+      <div className="page-bibliotheque">
       <main>
         <div className="library-layout">
           {/* ================= SIDEBAR ================= */}
@@ -255,6 +256,7 @@ export default async function BibliothequePage() {
           </p>
         </div>
       </footer>
+      </div>
     </>
   );
 }

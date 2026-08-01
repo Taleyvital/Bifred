@@ -7,6 +7,7 @@ export default function HomePage() {
       {/* ===================================== NAVBAR ====================================== */}
       <Navbar variant="simple" />
 
+      <div className="page-home">
       {/* ===================================== HERO ====================================== */}
       <header>
         <div className="content">
@@ -269,6 +270,7 @@ export default function HomePage() {
           © 2026 BIFRED — Bibliothèque Informatique de Référence. Tous droits réservés.
         </div>
       </footer>
+      </div>
     </>
   );
 }

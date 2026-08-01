@@ -11,6 +11,7 @@ export default function CoursPage() {
     <>
       <Navbar variant="simple" extraLinks showSearchIcon={false} />
 
+      <div className="page-cours">
       <div className="layout">
         {/* ================= SIDEBAR ================= */}
         <aside className="sidebar">
@@ -222,6 +223,7 @@ FIN`}</code>
           © 2026 BIFRED — Bibliothèque Informatique. Apprendre • Comprendre • Réussir.
         </p>
       </footer>
+      </div>
     </>
   );
 }
